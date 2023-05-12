@@ -9,7 +9,7 @@ import NavbarBottom from './NavbarBottom';
 
 function Navbar() {
 	return (
-		<div className='width-full bg-blue text-white'>
+		<div className='width-full bg-blue text-white sticky top-0 z-50'>
 			<div className='max-w-container mx-auto h-20 px-4 flex justify-between items-center gap-2'>
 				{/* logo */}
 				<div className='navbarHover'>
