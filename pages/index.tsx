@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import styles from '@/styles/Home.module.css';
 import Navbar from '@/components/Navbar';
 import Banner from '@/components/Banner';
+import { Product } from '@/type';
+import Products from '@/components/Products';
 
-const inter = Inter({ subsets: ['latin'] });
+interface Props {
+	productData: Product;
+}
 
-export default function Home() {
+export default function Home({ productData }: Props) {
 	return (
 		<>
 			<Head>
@@ -26,8 +27,21 @@ export default function Home() {
 				<Navbar />
 				<div className='max-w-contentContainer mx-auto bg-white'>
 					<Banner />
+					<Products productData={productData} />
 				</div>
 			</main>
 		</>
 	);
 }
+
+// SSR data fetching
+
+export const getServerSideProps = async () => {
+	const productData = await await (
+		await fetch('http://localhost:3000/api/productdata')
+	).json();
+
+	return {
+		props: { productData },
+	};
+};
