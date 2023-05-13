@@ -118,7 +118,7 @@ const Banner = () => {
 					</p>
 				</div>
 				<Image
-					className='h-60 object-cover'
+					className='h-60 object-cover rounded-lg'
 					src={bannerImg}
 					alt='Banner image'
 				/>

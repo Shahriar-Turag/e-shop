@@ -6,15 +6,22 @@ import { HiAdjustments } from 'react-icons/hi';
 import { IoSearchOutline } from 'react-icons/io5';
 import { BsCart2 } from 'react-icons/bs';
 import NavbarBottom from './NavbarBottom';
+import Link from 'next/link';
 
 function Navbar() {
 	return (
 		<div className='width-full bg-blue text-white sticky top-0 z-50'>
 			<div className='max-w-container mx-auto h-20 px-4 flex justify-between items-center gap-2'>
 				{/* logo */}
-				<div className='navbarHover'>
-					<Image className='w-44' alt='logo' src={logo} />
-				</div>
+				<Link href='/'>
+					<div className='navbarHover'>
+						<Image
+							className='max-w-[180px] mx-auto'
+							alt='logo'
+							src={logo}
+						/>
+					</div>
+				</Link>
 				{/* department */}
 				<div className='navbarHover'>
 					<div>
@@ -65,13 +72,15 @@ function Navbar() {
 					</div>
 				</div>
 				{/* cart */}
-				<div className='flex flex-col justify-center items-center gap-2 h-12 px-5 rounded-full bg-transparent hover:bg-hoverBg duration-300 relative'>
-					<BsCart2 className='text-2xl' />
-					<p className='text-[10px] -mt-2'>$0.00</p>
-					<span className='absolute w-4 h-4 bg-yellow text-black top-0 right-4 rounded-full flex items-center justify-center font-bodyFont text-xs'>
-						0
-					</span>
-				</div>
+				<Link href='/cart'>
+					<div className='flex flex-col justify-center items-center gap-2 h-12 px-5 rounded-full bg-transparent hover:bg-hoverBg duration-300 relative'>
+						<BsCart2 className='text-2xl' />
+						<p className='text-[10px] -mt-2'>$0.00</p>
+						<span className='absolute w-4 h-4 bg-yellow text-black top-0 right-4 rounded-full flex items-center justify-center font-bodyFont text-xs'>
+							0
+						</span>
+					</div>
+				</Link>
 			</div>
 			<hr />
 			<NavbarBottom />

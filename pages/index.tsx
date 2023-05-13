@@ -26,13 +26,10 @@ export default function Home({ productData }: Props) {
 				<link rel='icon' href='/smallLogo.ico' />
 			</Head>
 			<main className='bg-lightBlue'>
-				<Navbar />
 				<div className='max-w-contentContainer mx-auto bg-white'>
 					<Banner />
 					<Products productData={productData} />
 				</div>
-				<TopFooter />
-				<Footer />
 			</main>
 		</>
 	);
