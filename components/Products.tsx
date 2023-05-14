@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { BsStarFill } from 'react-icons/bs';
 import { GoPlus } from 'react-icons/go';
 import { useDispatch } from 'react-redux';
+import toast, {Toaster} from 'react-hot-toast';
 
 const Products = ({ productData }: any) => {
 	const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const Products = ({ productData }: any) => {
 											category: item.category,
 											brand: item.brand,
 										})
-									)
+									) && toast.success(`${item.title} is added to cart`)
 								}
 								className='w-20 h-9 bg-blue text-white rounded-full flex gap-1 items-center justify-center hover:bg-[#004f9a] duration-300'
 							>
@@ -101,6 +102,7 @@ const Products = ({ productData }: any) => {
 					</div>
 				</div>
 			))}
+			
 		</div>
 	);
 };

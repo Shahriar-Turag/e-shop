@@ -8,6 +8,7 @@ import ship2Img from '@/public/assets/images/images/ship/ship2.png';
 import ship3Img from '@/public/assets/images/images/ship/ship3.png';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/e_shopSlice';
+import toast from 'react-hot-toast';
 
 const ProductDetails = () => {
 	const router = useRouter();
@@ -124,7 +125,7 @@ const ProductDetails = () => {
 											brand: product.brand,
 											category: product.category,
 										})
-									)
+									)&& toast.success(`${product.title} is added to cart`)
 								}
 								className='w-32 h-10 bg-blue text-white rounded-full hover:bg-hoverBg duration-300'
 							>
@@ -170,28 +171,6 @@ const ProductDetails = () => {
 							</div>
 						</div>
 					</div>
-<<<<<<< HEAD
-					{/* online info */}
-					<div className='text-sm text-black flex flex-col gap-1'>
-						<p>
-							<span className='font-semibold'>$18/month</span>
-							<span className='font-bold'>WithAffirm</span><span className='underline underline-offset-2'>Learn how</span>
-						</p>
-						<p className='text-xs text-zinc-500 flex items-center gap-14'>
-							Price when purchased online
-							<span>
-								<BsInfoCircle/>
-							</span>
-						</p>
-					</div>
-					{/* Add to cart */}
-					<div>
-						<button className='w-32 h-10 bg-blue text-white rounded-full hover:bg-hoverBg duration-300'>Add to cart</button>
-					</div>
-					</div>
-					
-=======
->>>>>>> bef70cde16abab5277f07fc623454719c5ad13c2
 				</div>
 			</div>
 		</div>
