@@ -6,10 +6,38 @@ interface ProductState {
 	userInfo: null | UserInfo;
 }
 
+interface RegisterModal {
+	isOpen: boolean;
+	onOpen: () => void;
+	onClose: () => void;
+}
+
 const initialState: ProductState = {
 	productData: [],
 	userInfo: null,
 };
+
+export const registerModalSlice = createSlice({
+	name: 'registerModal',
+	initialState: {
+		isOpen: false,
+		onOpen: () => {},
+		onClose: () => {},
+	},
+	reducers: {
+		setRegisterModal: (state, action) => {
+			state.isOpen = action.payload.isOpen;
+			state.onOpen = action.payload.onOpen;
+			state.onClose = action.payload.onClose;
+		},
+
+		resetRegisterModal: (state) => {
+			state.isOpen = false;
+			state.onOpen = () => {};
+			state.onClose = () => {};
+		},
+	},
+});
 
 export const e_shopSlice = createSlice({
 	name: 'e_shop',
