@@ -6,6 +6,7 @@ import Layout from '@/components/Layout';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import {Toaster} from 'react-hot-toast';
 
 const open_sans = Open_Sans({
 	subsets: ['latin'],
@@ -20,6 +21,17 @@ export default function App({ Component, pageProps }: AppProps) {
 					<Layout>
 						<Component {...pageProps} />
 					</Layout>
+					<Toaster
+				reverseOrder={false}
+				position='top-center'
+				toastOptions={{
+					style: {
+						borderRadius: '8px',
+						background: '#333',
+						color: '#fff',
+					}
+				}}
+				/>
 				</main>
 			</PersistGate>
 		</Provider>
