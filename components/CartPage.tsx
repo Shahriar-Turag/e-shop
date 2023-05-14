@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	emptyCart,
@@ -14,12 +14,41 @@ import { TbReload } from 'react-icons/tb';
 import { MdOutlineAdd } from 'react-icons/md';
 import { HiMinusSm } from 'react-icons/hi';
 import FormatePrice from './FormatePrice';
-import { minusQuantity, removeFromCart, resetCart } from '@/redux/e_shopSlice';
+import {
+	minusQuantity,
+	plusQuantity,
+	removeFromCart,
+	resetCart,
+} from '@/redux/e_shopSlice';
+import { IoMdClose } from 'react-icons/io';
 
 const CartPage = () => {
-const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const productData = useSelector((state: any) => state.productData);
+	const [warningMsg, setWarningMsg] = useState<boolean>(false);
+	//price
+	const [totalOldPrice, setTotalOldPrice] = useState<number>(0);
+	const [totalSavings, setTotalSavings] = useState<number>(0);
+	const [totalPrice, setTotalPrice] = useState<number>(0);
+
+	useEffect(() => {
+		setWarningMsg(true);
+		let oldPrice = 0;
+		let savings = 0;
+		let price = 0;
+
+		productData.forEach((item: StoreProduct) => {
+			oldPrice += item.oldPrice * item.quantity;
+			savings += (item.oldPrice - item.price) * item.quantity;
+			price += item.price * item.quantity;
+			return;
+		});
+
+		setTotalOldPrice(oldPrice);
+		setTotalSavings(savings);
+		setTotalPrice(price);
+	}, [productData]);
 
 	return (
 		<div className='w-full py-10'>
@@ -119,28 +148,84 @@ const dispatch = useDispatch();
 												</p>
 												{/* buttons */}
 												<div className='mt-2 flex items-center gap-4'>
-													<button  className='text-sm underline underline-offset-2 decoration-[1px] text-zinc-600 hover:no-underline hover:text-blue duration-300'>
+													<button
+														onClick={() =>
+															dispatch(
+																removeFromCart({
+																	_id: item._id,
+																	title: item.title,
+																	description:
+																		item.description,
+																	image: item.image,
+																	price: item.price,
+																	oldPrice:
+																		item.oldPrice,
+																	quantity:
+																		item.quantity,
+																	brand: item.brand,
+																	category:
+																		item.category,
+																})
+															)
+														}
+														className='text-sm underline underline-offset-2 decoration-[1px] text-zinc-600 hover:no-underline hover:text-blue duration-300'
+													>
 														Remove
 													</button>
 													<div className='w-28 h-9 border border-zinc-400 rounded-full text-base font-semibold text-black flex items-center justify-between px-3'>
-														<button onClick={() => dispatch(minusQuantity({
-                              id: item._id,
-                              title: item.title,
-                              description: item.description,
-                              image: item.image,
-                              price: item.price,
-                              oldPrice: item.oldPrice,
-                              quantity: item.quantity,
-                              brand: item.brand,
-                              category: item.category,
-
-                            }))} className='text-base w-5 h-5 text-zinc-600 hover:bg-[#74767c] hover:text-white rounded-full flex items-center justify-center cursor-pointer duration-200'>
+														<button
+															onClick={() =>
+																dispatch(
+																	minusQuantity(
+																		{
+																			_id: item._id,
+																			title: item.title,
+																			description:
+																				item.description,
+																			image: item.image,
+																			price: item.price,
+																			oldPrice:
+																				item.oldPrice,
+																			quantity:
+																				item.quantity,
+																			brand: item.brand,
+																			category:
+																				item.category,
+																		}
+																	)
+																)
+															}
+															className='text-base w-5 h-5 text-zinc-600 hover:bg-[#74767c] hover:text-white rounded-full flex items-center justify-center cursor-pointer duration-200'
+														>
 															<HiMinusSm />
 														</button>
 														<span>
 															{item.quantity}
 														</span>
-														<button className='text-lg w-5 h-5 text-zinc-600 hover:bg-[#74767c] hover:text-white rounded-full flex items-center justify-center cursor-pointer duration-200'>
+														<button
+															onClick={() =>
+																dispatch(
+																	plusQuantity(
+																		{
+																			_id: item._id,
+																			title: item.title,
+																			description:
+																				item.description,
+																			image: item.image,
+																			price: item.price,
+																			oldPrice:
+																				item.oldPrice,
+																			quantity:
+																				item.quantity,
+																			brand: item.brand,
+																			category:
+																				item.category,
+																		}
+																	)
+																)
+															}
+															className='text-lg w-5 h-5 text-zinc-600 hover:bg-[#74767c] hover:text-white rounded-full flex items-center justify-center cursor-pointer duration-200'
+														>
 															<MdOutlineAdd />
 														</button>
 													</div>
@@ -148,23 +233,102 @@ const dispatch = useDispatch();
 											</div>
 										</div>
 										<div className='w-1/4 text-right flex flex-col items-end gap-1'>
-                      <p className='font-semibold text-xl text-[#2a8703]'><FormatePrice amount={item.price * item.quantity}/></p>
-                      <p className='text-sm line-through txt-zinc-500'><FormatePrice amount={item.oldPrice * item.quantity}/></p>
-                      <div className='flex items-center text-xs gap-2'>
-                        <p className='bg-green-200 text-[8px] uppercase px-2 py-[1px]'>You save</p>
-                        <p className='text-[#2a8703] font-semibold'>
-                          <FormatePrice amount={(item.oldPrice - item.price) * item.quantity}/>
-                        </p>
-                      </div>
-                    </div>
+											<p className='font-semibold text-xl text-[#2a8703]'>
+												<FormatePrice
+													amount={
+														item.price *
+														item.quantity
+													}
+												/>
+											</p>
+											<p className='text-sm line-through txt-zinc-500'>
+												<FormatePrice
+													amount={
+														item.oldPrice *
+														item.quantity
+													}
+												/>
+											</p>
+											<div className='flex items-center text-xs gap-2'>
+												<p className='bg-green-200 text-[8px] uppercase px-2 py-[1px]'>
+													You save
+												</p>
+												<p className='text-[#2a8703] font-semibold'>
+													<FormatePrice
+														amount={
+															(item.oldPrice -
+																item.price) *
+															item.quantity
+														}
+													/>
+												</p>
+											</div>
+										</div>
 									</div>
 								))}
 							</div>
-              <button onClick={() => dispatch(resetCart())} className='w-44 bg-red-500 text-white h-10 rounded-full text-base font-semibold hover:bg-red-800 duration-300'>Reset cart</button>
+							<button
+								onClick={() => dispatch(resetCart())}
+								className='w-44 bg-red-500 text-white h-10 rounded-full text-base font-semibold hover:bg-red-800 duration-300'
+							>
+								Reset cart
+							</button>
 						</div>
 					</div>
 				</div>
-				<div className='w-1/3 p-4 mt-24 h-[500px] border-[1px] border-zinc-400 rounded-md flex flex-col justify-center gap-4'></div>
+				<div className='w-1/3 p-4 mt-24 h-[500px] border-[1px] border-zinc-400 rounded-md flex flex-col justify-center gap-4'>
+					<div className='w-full flex flex-col gap-4 border-b-[1px] border-b-zinc-200 pb-4'>
+						<button className='bg-blue hover:bg-hoverBg w-full text-white h-10 rounded-full font-semibold duration-300'>
+							Continue to checkout
+						</button>
+						<p className='text-sm text-center text-red-500 -mt-4 font-semibold'>
+							Please sign in for checkout
+						</p>
+						{warningMsg && (
+							<div className='bg-[#002d58] text-white p-2 rounded-lg flex items-center justify-between gap-4'>
+								<Image
+									className='w-8'
+									src={warningImg}
+									alt='warning image'
+								/>
+								<p className='text-sm'>
+									Items in your cart have reduced prices.
+									Check out now for extra savings!
+								</p>
+								<IoMdClose
+									onClick={() => setWarningMsg(false)}
+									className='text-3xl hover:text-red-400 cursor-pointer duration-200'
+								/>
+							</div>
+						)}
+						<p className='text-sm text-center'>
+							For the best shopping experience.&nbsp;
+							<span className='underline underline-offset-2 decoration-[1px] font-semibold'>
+								Sign in
+							</span>
+						</p>
+					</div>
+					{/* checkout price */}
+					<div className='w-full flex flex-col gap-4 border-b-[1px] border-b-zinc-200 pb-4'>
+						<div className='flex flex-col gap-1'>
+							<div className='text-sm flex justify-between'>
+								<p className='font-semibold'>
+									Subtotal{' '}
+									<span>({productData.length} items)</span>
+								</p>
+								<p className='line-through text-zinc-600 text-base'>
+									<FormatePrice amount={totalOldPrice} />
+								</p>
+							</div>
+							<div className='text-sm flex justify-between'>
+								<p className='font-semibold'>Savings</p>
+								<p className='text-[#2a8703] font-bold bg-green-100 py-1 px-[2px] rounded-lg flex'>
+									- <FormatePrice amount={totalSavings} />
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
