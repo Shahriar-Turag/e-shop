@@ -6,12 +6,16 @@ import { IoMdHeartEmpty } from 'react-icons/io';
 import ship1Img from '@/public/assets/images/images/ship/ship1.png';
 import ship2Img from '@/public/assets/images/images/ship/ship2.png';
 import ship3Img from '@/public/assets/images/images/ship/ship3.png';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/redux/e_shopSlice';
 
 const ProductDetails = () => {
 	const router = useRouter();
 
 	const [product, setProduct] = useState<any>({});
 	const [loading, setLoading] = useState<boolean>(false);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setLoading(true);
@@ -20,6 +24,8 @@ const ProductDetails = () => {
 		}
 		setLoading(false);
 	}, [router]);
+
+	const _id = Number(product._id);
 
 	return (
 		<div className='w-full bg-white'>
@@ -102,7 +108,24 @@ const ProductDetails = () => {
 						</div>
 						{/* Add to cart */}
 						<div className='border-b-[1px] border-b-zinc-300 pb-4'>
-							<button className='w-32 h-10 bg-blue text-white rounded-full hover:bg-hoverBg duration-300'>
+							<button
+								onClick={() =>
+									dispatch(
+										addToCart({
+											_id: _id,
+											title: product.title,
+											description: product.description,
+											image: product.image,
+											price: product.price,
+											oldPrice: product.oldPrice,
+											quantity: 1,
+											brand: product.brand,
+											category: product.category,
+										})
+									)
+								}
+								className='w-32 h-10 bg-blue text-white rounded-full hover:bg-hoverBg duration-300'
+							>
 								Add to cart
 							</button>
 						</div>
