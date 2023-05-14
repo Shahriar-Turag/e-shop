@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { logo } from '../public/assets/images/images/index';
 import { AiFillDatabase, AiOutlineUser, AiOutlineHeart } from 'react-icons/ai';
 import { HiAdjustments } from 'react-icons/hi';
@@ -7,8 +7,22 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { BsCart2 } from 'react-icons/bs';
 import NavbarBottom from './NavbarBottom';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
+	const productData = useSelector((state: any) => state.productData);
+
+	const [totalAmount, setTotalAmount] = useState('');
+
+	useEffect(() => {
+		let price = 0;
+		productData.forEach((item: any) => {
+			price += item.price * item.quantity;
+			return price;
+		});
+		setTotalAmount(price.toFixed(2));
+	}, [productData]);
+
 	return (
 		<div className='width-full bg-blue text-white sticky top-0 z-50'>
 			<div className='max-w-container mx-auto h-20 px-4 flex justify-between items-center gap-2'>
@@ -75,9 +89,9 @@ function Navbar() {
 				<Link href='/cart'>
 					<div className='flex flex-col justify-center items-center gap-2 h-12 px-5 rounded-full bg-transparent hover:bg-hoverBg duration-300 relative'>
 						<BsCart2 className='text-2xl' />
-						<p className='text-[10px] -mt-2'>$0.00</p>
+						<p className='text-[10px] -mt-2'>${totalAmount}</p>
 						<span className='absolute w-4 h-4 bg-yellow text-black top-0 right-4 rounded-full flex items-center justify-center font-bodyFont text-xs'>
-							0
+							{productData.length > 0 ? productData.length : 0}
 						</span>
 					</div>
 				</Link>
