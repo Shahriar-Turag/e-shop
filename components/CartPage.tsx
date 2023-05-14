@@ -326,6 +326,9 @@ const CartPage = () => {
 									- <FormatePrice amount={totalSavings} />
 								</p>
 							</div>
+							<div className='text-sm flex justify-between'>
+								<p className='font-semibold '> Sa</p>
+							</div>
 						</div>
 					</div>
 				</div>
