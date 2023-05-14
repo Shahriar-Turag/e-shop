@@ -54,7 +54,7 @@ const CartPage = () => {
 		<div className='w-full py-10'>
 			<div className='w-full flex gap-10'>
 				<div className='w-2/3 flex flex-col gap-5'>
-					<h1>
+					<h1 className='text-2xl font-bold'>
 						Cart{' '}
 						<span className='text-light font-normal'>
 							({productData.length}) items
@@ -327,11 +327,34 @@ const CartPage = () => {
 								</p>
 							</div>
 							<div className='text-sm flex justify-between'>
-								<p className='font-semibold '> Sa</p>
+								<p className='font-semibold '>Total price</p>
+                <p className='text-zinc-800 font-normal text-base'>
+                  <FormatePrice amount={totalPrice} />
+                </p>
 							</div>
 						</div>
 					</div>
+          <div className='w-full flex flex-col gap-4 border-b-[1px] border-b-zinc-200 pb-4'>
+              <div className='flex flex-col gap-1'>
+                <div className='text-sm flex justify-between'>
+                  <p>Shipping</p>
+                  <p className='text-[#2a8703]'>Free</p>
+                </div>
+                <div className='text-sm flex justify-between'>
+                  <p className='font-semibold'>Taxes</p>
+                  <p className='text-zinc-800'>Calculated at checkout</p>
+                </div>
+              </div>
+              
+        </div>
+        <div className='flex items-center justify-between'>
+                  <p className='font-bold text-lg'>Estimated total</p>
+                  <p className='text-zinc-800 font-bold text-lg'>
+                    <FormatePrice amount={totalPrice} />
+                  </p>
+              </div>
 				</div>
+        
 			</div>
 		</div>
 	);
