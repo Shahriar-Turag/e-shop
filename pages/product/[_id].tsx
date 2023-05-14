@@ -27,6 +27,8 @@ const ProductDetails = () => {
 
 	const _id = Number(product._id);
 
+	if(loading) return <p>Loading...</p>
+
 	return (
 		<div className='w-full bg-white'>
 			<div className='max-w-contentContainer mx-auto flex items-center py-4'>
@@ -168,6 +170,28 @@ const ProductDetails = () => {
 							</div>
 						</div>
 					</div>
+<<<<<<< HEAD
+					{/* online info */}
+					<div className='text-sm text-black flex flex-col gap-1'>
+						<p>
+							<span className='font-semibold'>$18/month</span>
+							<span className='font-bold'>WithAffirm</span><span className='underline underline-offset-2'>Learn how</span>
+						</p>
+						<p className='text-xs text-zinc-500 flex items-center gap-14'>
+							Price when purchased online
+							<span>
+								<BsInfoCircle/>
+							</span>
+						</p>
+					</div>
+					{/* Add to cart */}
+					<div>
+						<button className='w-32 h-10 bg-blue text-white rounded-full hover:bg-hoverBg duration-300'>Add to cart</button>
+					</div>
+					</div>
+					
+=======
+>>>>>>> bef70cde16abab5277f07fc623454719c5ad13c2
 				</div>
 			</div>
 		</div>
