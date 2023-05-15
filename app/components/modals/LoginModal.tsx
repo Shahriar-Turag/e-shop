@@ -1,8 +1,5 @@
 'use client';
-
 import { signIn } from 'next-auth/react';
-import axios from 'axios';
-import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { useCallback, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -45,7 +42,7 @@ const LoginModal = () => {
 
 			if (callback?.ok) {
 				toast.success('Successfully logged in');
-				router.refresh();
+				// router.refresh();
 				loginModal.onClose();
 			}
 
@@ -93,18 +90,13 @@ const LoginModal = () => {
 				icon={FcGoogle}
 				onClick={() => signIn('google')}
 			/>
-			<Button
-				outline
-				label='Continue with Github'
-				icon={AiFillGithub}
-				onClick={() => signIn('github')}
-			/>
+
 			<div
 				className='text-neutral-500 text-center mt-4 font-light'
 				onClick={toggle}
 			>
 				<div className='flex flex-row items-center justify-center gap-2'>
-					<div>First time using Airbnb?</div>
+					<div>First time using e-shop?</div>
 					<div className='text-neutral-800 cursor-pointer hover:underline'>
 						Create an account
 					</div>

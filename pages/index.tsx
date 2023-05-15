@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Banner from '@/app/components/Banner';
-import { Product } from '@/app/type';
+import { Product } from '@/app/types/type';
 import Products from '@/app/components/Products';
 
 interface Props {

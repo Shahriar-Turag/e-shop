@@ -1,18 +1,15 @@
-
+'use client';
 type Amount = {
-  amount: number
-}
+	amount: number;
+};
 
-const FormatePrice = ({amount}: Amount) => {
+const FormatePrice = ({ amount }: Amount) => {
+	const formattedAmount = new Number(amount).toLocaleString('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		minimumFractionDigits: 2,
+	});
+	return <span>{formattedAmount}</span>;
+};
 
-  const formattedAmount = new Number(amount).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
-  })
-  return (
-    <span>{formattedAmount}</span>
-  )
-}
-
-export default FormatePrice
+export default FormatePrice;

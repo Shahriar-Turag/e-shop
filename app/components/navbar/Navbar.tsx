@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { logo } from '../../../public/assets/images/images/index';
@@ -10,7 +11,14 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import UserMenu from './UserMenu';
 
-function Navbar() {
+import { SafeUser } from '@/app/types';
+
+interface NavbarProps {
+	currentUser?: SafeUser | null;
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
+	console.log(currentUser);
 	const productData = useSelector((state: any) => state.productData);
 
 	const [totalAmount, setTotalAmount] = useState('');
@@ -93,6 +101,6 @@ function Navbar() {
 			<NavbarBottom />
 		</div>
 	);
-}
+};
 
 export default Navbar;
