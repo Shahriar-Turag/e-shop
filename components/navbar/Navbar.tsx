@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { logo } from '../public/assets/images/images/index';
+import { logo } from '../../public/assets/images/images/index';
 import { AiFillDatabase, AiOutlineUser, AiOutlineHeart } from 'react-icons/ai';
 import { HiAdjustments } from 'react-icons/hi';
 import { IoSearchOutline } from 'react-icons/io5';
 import { BsCart2 } from 'react-icons/bs';
-import NavbarBottom from './NavbarBottom';
+import NavbarBottom from '../navbar/NavbarBottom';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
+import UserMenu from './UserMenu';
 
 function Navbar() {
 	const productData = useSelector((state: any) => state.productData);
@@ -76,15 +77,7 @@ function Navbar() {
 					</div>
 				</div>
 				{/* Accounts */}
-				<div className='navbarHover '>
-					<AiOutlineUser />
-					<div>
-						<p className='text-xs'>Sign In</p>
-						<h2 className='text-base font-semibold -mt-1'>
-							Account
-						</h2>
-					</div>
-				</div>
+				<UserMenu />
 				{/* cart */}
 				<Link href='/cart'>
 					<div className='flex flex-col justify-center items-center gap-2 h-12 px-5 rounded-full bg-transparent hover:bg-hoverBg duration-300 relative'>
