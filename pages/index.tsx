@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import Banner from '@/components/Banner';
-import { Product } from '@/type';
-import Products from '@/components/Products';
+import Banner from '@/app/components/Banner';
+import { Product } from '@/app/type';
+import Products from '@/app/components/Products';
 
 interface Props {
 	productData: Product;

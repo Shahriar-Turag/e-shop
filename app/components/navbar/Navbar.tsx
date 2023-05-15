@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { logo } from '../../public/assets/images/images/index';
+import { logo } from '../../../public/assets/images/images/index';
 import { AiFillDatabase, AiOutlineUser, AiOutlineHeart } from 'react-icons/ai';
 import { HiAdjustments } from 'react-icons/hi';
 import { IoSearchOutline } from 'react-icons/io5';
